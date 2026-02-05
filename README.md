@@ -108,5 +108,17 @@ make
 
 # To clean:
 # make clean
+```
+
 ---
 
+## Screenshots
+
+<img width="1366" height="718" alt="image" src="https://github.com/user-attachments/assets/c437564e-b466-43e0-ae45-16af6a54b802" />
+
+<br>
+
+<img width="1366" height="718" alt="image" src="https://github.com/user-attachments/assets/7fbae362-c978-402f-8abd-0194718999d2" />
+
+
+---
