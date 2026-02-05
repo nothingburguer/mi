@@ -135,6 +135,12 @@ void Editor::handleInput() {
                 buffer.newline();
                 break;
 
+            case '\t':
+                for (int i = 0; i < TAB_WIDTH; i++) {
+                    buffer.insert_char(' ');
+                }
+                break;
+
             default:
                 if (isprint(ch))
                     buffer.insert_char(ch);

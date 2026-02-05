@@ -2,6 +2,8 @@
 #include "buffer.hpp"
 #include <string>
 
+constexpr int TAB_WIDTH = 4;
+
 enum class Mode {
     NORMAL,
     INSERT,
