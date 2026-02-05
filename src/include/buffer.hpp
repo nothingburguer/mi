@@ -19,4 +19,11 @@ public:
     void newline();
 
     int line_count() const;
+
+    bool is_modified() const;
+    void set_modified(bool value);
+
+private:
+    bool modified = false;
 };
+

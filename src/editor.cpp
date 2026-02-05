@@ -1,4 +1,5 @@
 #include "include/editor.hpp"
+#include "include/buffer.hpp"
 #include "include/file.hpp"
 #include <ncurses.h>
 
@@ -39,6 +40,10 @@ void Editor::render_status_bar() {
     std::string right =
         filename.empty() ? "[No File]" : filename;
 
+    if (buffer.is_modified()) {
+        right += " [+]";
+    }
+
     mvprintw(rows - 1, 0, "%s", left.c_str());
 
     int right_x = cols - right.size() - 1;
@@ -47,13 +52,6 @@ void Editor::render_status_bar() {
 
     attroff(A_BOLD);
     attroff(COLOR_PAIR(status_color));
-
-    int screen_y = buffer.cursor.y - row_offset;
-    int screen_x = buffer.cursor.x + 5;
-
-    if (screen_y >= 0 && screen_y < rows - 1) {
-        move(screen_y, screen_x);
-    }
 }
 
 void Editor::render() {
@@ -76,6 +74,13 @@ void Editor::render() {
         render_command_line();
     } else {
         render_status_bar();
+    }
+
+    int screen_y = buffer.cursor.y - row_offset;
+    int screen_x = buffer.cursor.x + 5;
+
+    if (screen_y >= 0 && screen_y < rows - 1) {
+        move(screen_y, screen_x);
     }
 
     refresh();
@@ -193,9 +198,11 @@ void Editor::handleInput() {
             }
             else if (command == "w") {
                 File::save(filename, buffer);
+                buffer.set_modified(false);
             }
             else if (command == "wq") {
                 File::save(filename, buffer);
+                buffer.set_modified(false);
                 endwin();
                 exit(0);
             }
