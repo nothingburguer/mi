@@ -5,8 +5,19 @@
 
 Editor::Editor(const std::string& file)
     : mode(Mode::NORMAL), filename(file), row_offset(0) {
-    if (!file.empty())
+    if (!file.empty()) {
         File::load(file, buffer);
+        buffer.set_modified(false);
+    } else {
+        buffer.lines.clear();
+        buffer.lines.push_back("");
+
+        buffer.cursor.x = 0;
+        buffer.cursor.y = 0;
+
+        buffer.set_modified(false);
+        filename = "nullfile";
+    }
 }
 
 void Editor::render_command_line() {
@@ -214,15 +225,37 @@ void Editor::handleInput() {
                 endwin();
                 exit(0);
             }
-            else if (command == "w") {
-                File::save(filename, buffer);
-                buffer.set_modified(false);
+
+            else if (command.rfind("wq", 0) == 0) {
+                std::string new_filename = filename;
+
+                if (command.size() > 2 && command[2] == ' ') {
+                    new_filename = command.substr(3);
+                }
+
+                if (!new_filename.empty()) {
+                    if (File::save(new_filename, buffer)) {
+                        filename = new_filename;
+                        buffer.set_modified(false);
+                        endwin();
+                        exit(0);
+                    }
+                }
             }
-            else if (command == "wq") {
-                File::save(filename, buffer);
-                buffer.set_modified(false);
-                endwin();
-                exit(0);
+
+            else if (command.rfind("w", 0) == 0) {
+                std::string new_filename = filename;
+
+                if (command.size() > 1 && command[1] == ' ') {
+                    new_filename = command.substr(2);
+                }
+
+                if (!new_filename.empty()) {
+                    if (File::save(new_filename, buffer)) {
+                        filename = new_filename;
+                        buffer.set_modified(false);
+                    }
+                }
             }
 
             command.clear();
