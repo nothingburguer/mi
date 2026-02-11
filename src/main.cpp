@@ -18,6 +18,7 @@ int main(int argc, char** argv) {
     std::string file = (argc > 1) ? argv[1] : "";
 
     Editor editor(file);
+    refresh();
     editor.run();
 
     endwin();

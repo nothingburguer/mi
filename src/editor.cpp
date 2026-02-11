@@ -70,24 +70,24 @@ void Editor::render() {
     erase();
 
     int sidebar = flm.width();
+    int editor_start_x = sidebar;
 
+    // Renderiza buffer
     for (int i = 0; i < rows - 1; i++) {
         int line_idx = i + row_offset;
 
         if (line_idx < buffer.line_count()) {
-            mvprintw(i, sidebar + 0, "%4d ", line_idx + 1);
-            mvprintw(i, sidebar + 5, "%s", buffer.lines[line_idx].c_str());
+
+            mvprintw(i, editor_start_x, "%4d ", line_idx + 1);
+
+            mvprintw(i, editor_start_x + 5, "%s",
+                     buffer.lines[line_idx].c_str());
 
         } else {
-            attroff(COLOR_PAIR(1));
-            attroff(COLOR_PAIR(2));
-            attroff(A_BOLD);
-            attroff(A_REVERSE);
-
             attron(COLOR_PAIR(10));
             attron(A_DIM);
 
-            mvprintw(i, sidebar + 0, "   ~");
+            mvprintw(i, editor_start_x, "   ~");
 
             attroff(COLOR_PAIR(10));
             attroff(A_DIM);
@@ -100,17 +100,17 @@ void Editor::render() {
         render_status_bar();
     }
 
-    flm.render(rows);
+    flm.render(rows, cols);
 
     int screen_y = buffer.cursor.y - row_offset;
-    int screen_x = buffer.cursor.x + sidebar + 5;
+    int screen_x = buffer.cursor.x + editor_start_x + 5;
 
-    if (screen_y >= 0 && screen_y < rows - 1) {
+    if (screen_y >= 0 && screen_y < rows - 1 &&
+        screen_x >= editor_start_x) {
         move(screen_y, screen_x);
     }
 
     refresh();
-
 }
 
 void Editor::handleInput() {
