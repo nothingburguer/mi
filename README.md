@@ -16,6 +16,7 @@
 - Colored status bar (mode-aware)
 - Cursor navigation with arrow keys
 - File loading and saving
+- Built-in file manager (FLM)
 - Built with **ncurses**
 
 ---
@@ -38,6 +39,9 @@
 - `:q` — quit
 - `:wq` — save and quit
 - `ESC` — cancel command
+
+### Keybinds
+- `Ctrl+f` or `:flm` — open the FLM file manager
 
 ---
 
