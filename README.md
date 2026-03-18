@@ -4,125 +4,135 @@
 
 ---
 
-## Features
-
-- Modal editing (NORMAL, INSERT, COMMAND)
-- Line numbers
-- Command mode (`:w`, `:q`, `:wq`)
-- Status bar with:
-  - Current mode
-  - Line and column position
-  - Open file name
-- Colored status bar (mode-aware)
-- Cursor navigation with arrow keys
-- File loading and saving
-- Built-in file manager (FLM)
-- Built with **ncurses**
+> [!WARNING]
+> **This repository is an archived mirror — no longer actively maintained here.**
+> Development has moved to Codeberg. Issues, pull requests, and contributions
+> opened in this repository will not be monitored. For the active repository,
+> see the [Codeberg mirror](https://codeberg.org/grassleaff/mi).
 
 ---
 
-## Controls
+# Project Migration Notice
 
-### NORMAL mode
-- `i` — enter INSERT mode
-- `ARROW KEYS` — move cursor
-- `:` — enter COMMAND mode
+This project has been permanently migrated from GitHub to **[Codeberg](https://codeberg.org)**.
+The canonical repository is now hosted at:
 
-### INSERT mode
-- Type to insert text
-- `ESC` — return to NORMAL mode
-- `ARROW KEYS` — move cursor
-- `BACKSPACE` — delete character
+```
+https://codeberg.org/grassleaff/mi
+```
 
-### COMMAND mode
-- `:w` — save file
-- `:q` — quit
-- `:wq` — save and quit
-- `ESC` — cancel command
-
-### Keybinds
-- `Ctrl+f` or `:flm` — open the FLM file manager
+This document outlines the technical and ethical rationale behind this decision.
 
 ---
 
-## Dependencies
-- GNU GCC/G++
-- GNU Make
-- ncurses
+## Background
+
+GitHub, acquired by Microsoft in 2018, has undergone a series of policy and structural changes
+that progressively conflict with the principles this project upholds: software freedom, user
+sovereignty, transparency, and ethical use of contributed code.
+
+The migration to Codeberg is a deliberate response to these changes, not a temporary measure.
 
 ---
 
-## Building and Running
+## Reasons for Migration
 
-### STEP 1 - Installing libncurses:
+### 1. Use of Public Repositories to Train Commercial AI Without Explicit Consent
 
+GitHub Copilot was trained on source code from public repositories, including projects hosted
+under licenses that impose specific conditions on use, reproduction, and attribution (e.g., GPL,
+LGPL, MPL, AGPL). The GitHub Terms of Service (Section D.8) grant the platform a broad license
+to use publicly hosted content for operating and improving its services — which now explicitly
+includes AI products.
 
-On **Debian** or **Ubuntu**:
-```
-sudo apt install libncurses-dev
-```
+No effective opt-out mechanism was provided for code already published. Contributors to this
+project never consented to having their work used as training data for a commercial product.
 
+This issue resulted in a class-action lawsuit filed in November 2022 against GitHub, Microsoft,
+and OpenAI, alleging that Copilot reproduces licensed code without attribution, in violation of
+open source license terms.
 
-On **CentOS/RHEL/Scientific Linux 6.x/7.x+** and **Fedora Linux 21** or older:
-```
-sudo yum install ncurses-devel
-```
+### 2. Aggressive Platform-Level Integration of Copilot
 
+GitHub has progressively embedded Copilot across its interface — in the code editor, pull request
+reviews, issue tracking, and repository suggestions. This makes it functionally difficult to
+maintain a project on the platform while enforcing a policy against AI-generated contributions,
+as the platform itself actively encourages and normalizes such use.
 
-On **Fedora Linux 22.x+**:
-```
-sudo dnf install ncurses-devel
-```
+This concern was explicitly cited by the **Gentoo Linux** project when it announced its migration
+to Codeberg, referencing GitHub's "continuous attempts to force Copilot usage" on hosted
+repositories.
 
-<br>
+### 3. Organizational Restructuring: GitHub Absorbed into Microsoft CoreAI
 
-### STEP 2 - Cloning and Installing:
+In August 2025, GitHub's CEO Thomas Dohmke departed and the platform was formally integrated into
+Microsoft's **CoreAI** division — the same organizational unit responsible for the company's
+artificial intelligence strategy. This removed any remaining institutional separation between
+GitHub as a developer platform and Microsoft's commercial AI business.
 
+GitHub is no longer an independently operated product. It is a strategic asset in a vertically
+integrated AI pipeline.
 
-```sh
-git clone https://github.com/nothingburguer/mi
-cd mi
-sudo make install
-mi [filename]
+### 4. Government Contracts Raising Ethical Concerns
 
-# Examples:
-#  mi main.cpp
-#  mi index.js
-#  mi script.py
-```
+Microsoft and GitHub have maintained contracts with agencies such as U.S. Immigration and Customs
+Enforcement (ICE), which have drawn sustained criticism from civil liberties organizations and
+members of the open source community. Hosting critical project infrastructure on a platform with
+these institutional relationships is inconsistent with this project's values.
 
-<br>
+### 5. DMCA Takedowns and Lack of Due Process
 
-### ALT 1 - Uninstalling:
+GitHub has a documented history of responding to DMCA takedown requests by removing repositories
+with limited notice and inadequate mechanisms for contestation. Notable cases include the removal
+of `youtube-dl` in 2020 and various security research repositories.
 
-(On the repo folder)
-```sh
-cd mi
-sudo make uninstall
-```
+This represents an operational risk: a project's entire history, issues, and releases can be made
+inaccessible without recourse, based on a third-party legal request directed at a centralized
+commercial host.
 
-<br>
+### 6. Geopolitical Access Restrictions
 
-### ALT 2 - Local Build
+GitHub, as a U.S.-based platform subject to U.S. export controls and sanctions law, has previously
+restricted access for developers in sanctioned countries without advance notice. A platform that
+can unilaterally revoke access to contributors based on their nationality or location is not
+suitable as a long-term home for a project that aims to serve a global community.
 
-```sh
-git clone https://github.com/nothingburguer/mi
-cd mi
-make
+---
 
-# To clean:
-# make clean
-```
+## Why Codeberg
+
+**[Codeberg](https://codeberg.org)** is operated by **Codeberg e.V.**, a registered non-profit
+association based in Berlin, Germany. The platform runs **[Forgejo](https://forgejo.org)**, a
+community-governed fork of Gitea, under the terms of the EUPL.
+
+Relevant distinctions:
+
+- Operated as a non-profit with no commercial AI agenda
+- No use of hosted repositories for model training
+- Subject to EU law, including GDPR, rather than U.S. jurisdiction
+- Platform source code is free software and publicly auditable
+- Governance is transparent and community-oriented
+- Explicitly scoped to free and open source software projects
 
 ---
 
-## Screenshots
+## Contributing
 
-<img width="1366" height="718" alt="image" src="https://github.com/user-attachments/assets/c437564e-b466-43e0-ae45-16af6a54b802" />
+All active development, issue tracking, and pull requests are handled exclusively on Codeberg:
 
-<br>
+```
+https://codeberg.org/grassleaff/mi
+```
 
-<img width="1366" height="718" alt="image" src="https://github.com/user-attachments/assets/7fbae362-c978-402f-8abd-0194718999d2" />
-
+This GitHub repository is not monitored. Pull requests and issues opened here will be closed
+without review.
 
 ---
+
+## References
+
+- GitHub Terms of Service, Section D — https://docs.github.com/en/site-policy/github-terms/github-terms-of-service
+- *Doe v. GitHub, Inc.* (N.D. Cal., 2022) — class-action complaint regarding Copilot training data
+- Gentoo Linux migration announcement — https://www.gentoo.org/news/2024/09/18/codeberg-migration.html
+- Forgejo project — https://forgejo.org
+- Codeberg e.V. — https://codeberg.org/Codeberg/org/src/branch/main/en/bylaws.md
